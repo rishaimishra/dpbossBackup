@@ -86,26 +86,30 @@ $row['admin_id']=$_SESSION['admin_id'];
                                     
                                         <form action="sendnotify.php" method="post">
                                         	
-                                            <table border="1" style="width:100%">
+                                            <table border="1" style="width:50%">
 
                                             <tr>
                                             <th>Select</th>
-                                            <th>Users Name</th>
-                                            <th>Title</th>
-                                            <th>Body</th>
+                                            <th>Users Name(Registered)</th>
                                             </tr>
                                             <?php
                                             while($row = $res->fetch_assoc()) { 
 
                                                 echo "<tr>";
-                                                echo "<td style='width:5%'><input type='checkbox' name='checkbox[]' value='".$row['fb_token']."'></td><td style='width:10%'>".$row['username']."</td>";
+                                                echo "<td style='width:5%'><input type='checkbox' class='checkbox' name='checkbox[]' value='".$row['fb_token']."'></td><td style='width:10%'>".$row['username']."</td>";
                                                 echo "</tr>";
                                              }
                                             ?>
                                             
                                             </table>
+                                 <input type="checkbox" class="chk_boxes" label="check all"  />check all
+                                 
+
+
+
                                             <input class="row" type="text" name="title" style="width:30%;margin-left:20px;margin-top:20px" placeholder="title"/>
                                             <input class="row" type="text" name="body" style="width:50%;margin-left:20px;margin-top:20px" placeholder="body"/>
+                                            
                                             <input type="submit" id="send" name="send" value="Send" />
                                                 
                                          </form>
@@ -133,24 +137,11 @@ $row['admin_id']=$_SESSION['admin_id'];
      <?php include 'footer.php'; ?>
 
 
- <!-- output data of each row -->
- <?php while($row = $res->fetch_assoc()) {  ?>
-
-                                           
-                                                
-<span style="margin-left:50px"> Username : <?php echo $row['username']  ?></span>
  
-  <input class="row" type='text' name="body" style="width:80%;margin-left:50px" placeholder="body"/>
-
-  <input type="text" name="regid" value="<?php echo $row['fb_token']  ?>" style="display:"/>
-  <input class="row" style="margin-left:50px" type='submit'><br>
-
-  <!-- echo "<td style='width:20%'><input class='row' type='text' name='title' style='width:80%;margin-left:20px' placeholder='title'/></td>";
-  echo "<td><input class='row' type='text' name='body' style='width:100%;margin-left:20px' placeholder='body'/></td>";
-                                                -->
- 
-
-
-<?php  } 
-
-?>
+<script type="text/javascript">
+    $(function() {
+    $('.chk_boxes').click(function() {
+        $('.checkbox').prop('checked', this.checked);
+    });
+});
+</script> 

@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Asia/Kolkata');
   require_once('../../connect.php');
 session_start();
 
@@ -39,76 +39,62 @@ $row['admin_id']=$_SESSION['admin_id'];
                 <h1>This is notification page</h1>
 
                 <?php
-                
-              
-                 
-                 
-                
-                //  $datas=json_encode($_POST['notication']);
-                if(!empty($_POST['title'])){
-                    $title = $_POST['title'];
-                }else{
-                    $title="test title";
-                }
-                
-                if(!empty($_POST['body'])){
-                    $body = $_POST['body'];
-                }else{
-                    $body="THis is body";
-                }
-                
-                if(!empty($_POST['reg_id'])){
-                    $id = $_POST['reg_id'];
-                }else{
-                    $id="cm-fcpWCSSunW0jkT1lU95:APA91bFg6n2ngtPOKnuDyZVO8_M-ZFf-2yn7Z6KU7rb7QqdJETZCYQISoXMR5q5CZoj3wxzmdbNPihVYoBssrJI3UcU8MbrSGeReXI1raYKGxY8cVn3m1L1evMmq05OBnEUEk7hVcypJ";
-                }
+
+       
+	// legacy server fcm api key
+	$apiKey = "AAAA7iLipe0:APA91bHTgCzlUXDctd23WdlFosAzVQcV2sA1E8dYVg3FSUqcy9vfSzxh2ET5yG4iOhW-tMkk0y5WjPxr62-DXo4hM7rpgsWAizRnIwj8-kAkL_y7JoqjXP2k20ILamm9fBfiMVZX8v-u";
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $t=time();
+        $time= date("h:i A",$t);
+		$body = $_POST["body"];
+		$title = $_POST["title"];
+		$reg_id = $_POST["reg_id"];
+
+		sendPushNotification($title, $body, $reg_id, $apiKey,$time);
+		
+	}
 
 
-                
-				
-                $url='https://fcm.googleapis.com/fcm/send';
-                $headers = array(
-                    'Authorization: key=AAAA7iLipe0:APA91bHTgCzlUXDctd23WdlFosAzVQcV2sA1E8dYVg3FSUqcy9vfSzxh2ET5yG4iOhW-tMkk0y5WjPxr62-DXo4hM7rpgsWAizRnIwj8-kAkL_y7JoqjXP2k20ILamm9fBfiMVZX8v-u',
-                    'Content-Type: application/json'
-                );
-                $msg=array(
-                    'body'=>$body,
-                    'title'=>$title
-                );
-                $story=array(
-                    'story_id'=>'story'
-                );
+	function sendPushNotification($title, $body, $reg_id, $apiKey,$time) {
+		
+		$post = array(
+						'to' => '/topics/test_topic',
+						'data' => array (
+								'title' => $title,
+								'date' => $title,
+								'icon' => 'http://45.77.244.128/dpboss4/download.png',
+								'description' => 'hello',
+								'time' => $time,
+								'description' => $body,
+								'reg_id' => $reg_id
+						)
+					 );
 
-                
-                
+		$headers = array( 
+							'Authorization: key=' . $apiKey,
+							'Content-Type: application/json'
+						);
+    
+		$ch = curl_init();  
+		curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');   
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);    
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
+		$result = curl_exec($ch);
+		if (curl_errno($ch)) {
+			echo 'FCM error: ' . curl_error($ch);
+		} else {
+			echo "<br><div class='textOutput'>Push sent to all devices.</div>";
+			echo "<br><a href='notifylist.php'>Send New Push Notification</a>";
+		}
+		curl_close($ch);
+	}
 
-                $fields = array(
-                    'registration_ids' => $_POST['checkbox'],
-                    'notification' => $msg,
-                    'data'=>$story
-
-                );
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-
-                $result= curl_exec($ch);
-                if ($result === FALSE) {
-                    die('Curl failed : ' . curl_error($ch));
-                }
-                curl_close($ch);
-                echo($result);
-            
-            
-
-                
-              ?>
+?>
                
                 </div>
                 </div>
