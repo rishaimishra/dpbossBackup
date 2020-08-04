@@ -86,13 +86,34 @@ $row['admin_id']=$_SESSION['admin_id'];
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);  
 		$result = curl_exec($ch);
 		if (curl_errno($ch)) {
-			echo 'FCM error: ' . curl_error($ch);
+            echo 'FCM error: ' . curl_error($ch);
+            echo "Unable to send notification";die;
 		} else {
+            
+              
+        
+                   
+            
+
 			echo "<br><div class='textOutput'>Push sent to all devices.</div>";
 			echo "<br><a href='notifylist.php'>Send New Push Notification</a>";
 		}
 		curl_close($ch);
-	}
+    }
+    
+    $t=time();
+    $time= date("h:i A",$t);
+    $date = date('d/m/Y',$t);
+    $body = $_POST["body"];
+    $title = $_POST["title"];
+    $deviceid = $_POST["deviceid"];
+    
+
+    $sql_m="INSERT INTO notify (device_id,notify_title,notify_text,notify_time) VALUES('$deviceid','$title','$body','$date $time')";
+      
+        
+        // $sql_bluc="SELECT * FROM users WHERE bestlucky='$bestlucky'";
+        $res_m=mysqli_query($db,$sql_m) or die(mysqli_error($db));
 
 ?>
                

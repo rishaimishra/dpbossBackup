@@ -97,6 +97,7 @@ $row['admin_id']=$_SESSION['admin_id'];
 
                                                 echo "<tr>";
                                                 echo "<td style='width:5%'><input type='checkbox' class='checkbox' name='checkbox[]' value='".$row['fb_token']."'></td><td style='width:10%'>".$row['username']."</td>";
+                                                echo "<td style='width:5%;display:none'><input type='text' class='checkbox' name='deviceid' value='".$row['device_id']."'></td>";
                                                 echo "</tr>";
                                              }
                                             ?>
