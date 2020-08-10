@@ -21,15 +21,29 @@ header("Location: reglogin.php");
 <html>
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="assets/css/richtext.min.css">
-<style type="text/css">
+	<style type="text/css">
 table{
 	display:none;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function(){
+    $(document).ready(function(){
+  $("#submitMessage").on('click', function() {
+    $("#old-message").val(function() {
+        return this.value + "<p>" + $("#new-message").val() + "</p>";
+    });
+    // $("#submitMessage").prop('disabled', true);
+  });
+})
+  })
+</script>
 
 </head>
 <body>
+
 
 
 <h1>Enter Your comment</h1>
@@ -40,11 +54,9 @@ table{
 
 <input type="text" name="lottery_id" class="num11" value="<?php echo $_GET['lottery_id'] ?>" style="display:none">
 
-<textarea id="body_post" rows="10" cols="100"  name="body" form="usrform">
+<textarea id="old-message" rows="10" cols="100"  name="body" form="usrform" style="display: none;">
 
-<?php if(@ $_GET['postid']){
-
-			
+<?php if(@ $_GET['postid']){ 
 
 				$q = " SELECT * FROM posts INNER JOIN myguests ON posts.author=myguests.id
 					inner join lottery_name on posts.lottery_id=lottery_name.lottery_id
@@ -60,26 +72,21 @@ table{
 				$date = $dt->format('d/m/Y');
 				$time = $dt->format('H:i');
 				
-					echo "<p>Originally posted by :" .$rrow['name']."\n";echo $rrow['body']; echo "\n</p><p>";
+					echo "<p>Originally posted by :" .$rrow['name']."\n";echo $rrow['body']; echo "</p>";
 
 				} 
-}  ?>
+ }  ?>
 
-</textarea> </p></div>
+</textarea>
+<textarea  id="new-message" cols="30" rows="10"></textarea>
+</p>
+</div>
 <div>
-<button type="submit" name="postinsertauthor" class="my-btn sub-btn">Submit</button>
-    <button type="button" class="my-btn close-btn" id="close-btn4">Close</button> </div>
-</form>
+<button type="submit" name="postinsertauthor" id="submitMessage" class="my-btn sub-btn">Submit</button>
+    </form>
 
 
 <br>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery.richtext.min.js"></script>
-<script>
-        $(document).ready(function() {
-            $('#body_post').richText();
-        });
-</script>
 </body>
 </html>
