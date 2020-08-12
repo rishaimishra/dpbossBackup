@@ -54,14 +54,15 @@ table{
 
 <input type="text" name="lottery_id" class="num11" value="<?php echo $_GET['lottery_id'] ?>" style="display:none">
 
-<textarea id="old-message" rows="10" cols="100"  name="body" form="usrform" style="display: none;">
+<textarea id="old-message" rows="10" cols="100"  name="body" form="usrform" style="display:none;">
 
 <?php if(@ $_GET['postid']){ 
 
-				$q = " SELECT * FROM posts INNER JOIN myguests ON posts.author=myguests.id
-					inner join lottery_name on posts.lottery_id=lottery_name.lottery_id
-                      where post_id = $_GET[postid] " ;
-				
+				$q = " SELECT * FROM posts LEFT OUTER JOIN myguests ON posts.author=myguests.id
+					left outer join lottery_name on posts.lottery_id=lottery_name.lottery_id
+					left outer join fakeuser on fakeuser.fakeid=posts.fakeuser
+                      where posts.post_id = $_GET[postid] " ;
+				// echo $q;
 				$r= mysqli_query($db,$q) or die(mysqli_error($db));
               
 				
@@ -72,7 +73,7 @@ table{
 				$date = $dt->format('d/m/Y');
 				$time = $dt->format('H:i');
 				
-					echo "<p>Originally posted by :" .$rrow['name']."\n";echo $rrow['body']; echo "</p>";
+					echo "<p>Originally posted by :" .$rrow['name'].$rrow['firstname']."\n";echo $rrow['body']; echo "</p>";
 
 				} 
  }  ?>
