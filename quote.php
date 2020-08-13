@@ -73,7 +73,7 @@ table{
 				$date = $dt->format('d/m/Y');
 				$time = $dt->format('H:i');
 				
-					echo "<p>Originally posted by :" .$rrow['name'].$rrow['firstname']."\n";echo $rrow['body']; echo "</p>";
+					echo "<p>Originally posted by :" .$rrow['name'].$rrow['firstname']."</p>\n";echo $rrow['body']; echo "</p>";
 
 				} 
  }  ?>

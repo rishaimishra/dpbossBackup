@@ -84,7 +84,7 @@ header('Location: guessing_form.php');
         }
 
 
-        if (isset($_POST['postinsertauthor'])) {
+        if (isset($_POST['postinsertauthor']) && $_POST['lottery_id'] ) {
        
         $body = $_POST['body'];
         $author = $_POST['author'];
@@ -110,7 +110,33 @@ header('Location: guessing_form.php');
 
 
 
-        }
+        }else if (isset($_POST['postinsertauthor'])) {
+       
+                $body = $_POST['body'];
+                $author = $_POST['author'];
+                
+               
+        
+                $query="INSERT INTO posts (body,author) VALUES('$body','$author')";
+                        // echo $query;die;
+                      $result=mysqli_query($db,$query) or die(mysqli_error($db));
+                      $_SERVER['PHP_SELF'];
+                      echo '<div>  <div class="alert" style="color:green;">
+          <span class="closebtn" onclick="this.parentElement.style.display="none";></span> 
+          <strong>Success!</strong> Repost Done Successfully.
+        </div>
+        </div>';
+        header('Location: guessing_form.php');
+           echo '<a href="guessing_form.php">  <div class="alert" style="color:blue;">
+         
+           Go back to Posts
+        </div>
+        </a>';
+        
+        
+        
+        
+                }
 
 
 ?>

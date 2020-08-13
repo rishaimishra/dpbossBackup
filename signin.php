@@ -10,26 +10,20 @@ if (isset($_POST['login'])) {
         $password = $_POST['password'];
         
             $sql="SELECT * FROM myguests WHERE username='$username' && password='$password' ";
-            $sql_f="SELECT * FROM fakeuser WHERE username='$username' && password='$password' ";
-
+            
             $sql_id="SELECT id FROM myguests WHERE username='$username' && password='$password' ";
-            $sql_fid="SELECT fakeid FROM fakeuser WHERE username='$username' && password='$password' ";
-
+            
 
             
 
              $res=mysqli_query($db,$sql) or die(mysqli_error($db));
-             $res_f=mysqli_query($db,$sql_f) or die(mysqli_error($db));
-
+            
 
              $res_id=mysqli_query($db,$sql_id) or die(mysqli_error($db));
-             $res_fid=mysqli_query($db,$sql_fid) or die(mysqli_error($db));
-
+            
 
          $data = $res_id->fetch_assoc();
-         $dataf = $res_fid->fetch_assoc();
-         // $guest_id=$data['id'];
-
+       
              if (mysqli_num_rows($res) > 0 ) {
          //         
                      $_SESSION['id']=$data['id'];

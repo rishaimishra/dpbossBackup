@@ -254,7 +254,7 @@ function myFunction() {
 	<?php $sql = "SELECT * from posts p left outer join myguests q on q.id=p.author 
 				left outer join fakeuser r on r.fakeid=p.fakeuser 
 				left outer join admin s on s.admin_id=p.admin_id 
-        inner join lottery_name on p.lottery_id=lottery_name.lottery_id
+        left outer join lottery_name on p.lottery_id=lottery_name.lottery_id
 				left outer join subadmin t on t.subadmin_id=p.subadmin_id order by post_id DESC";
 	//echo $sql;die;
 
