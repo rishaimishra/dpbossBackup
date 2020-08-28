@@ -121,7 +121,7 @@
                          <div id="submenu-6" class="collapse submenu" style="">
                              <ul class="nav flex-column">
                                  <li class="nav-item">
-                                     <a class="nav-link" href="pages/blank-page.html">Manage Emojis</a>
+                                     <a class="nav-link" href="manage_guess_form.php">Manage Emojis</a>
                                  </li>
                                  <li class="nav-item">
                                      <a class="nav-link" href="manage_guess_form.php">Manage Guessing Forum</a>
