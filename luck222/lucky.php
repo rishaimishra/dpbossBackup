@@ -291,23 +291,34 @@ input:focus, select:focus, button:focus {
             node.val(node.val().trim().replace(/[^a-z]/g,''));
     })
 });
-    function myFunction() {
+function myFunction() {
 
-  w = Math.floor(Math.random() * 90 + 10);
-  x = Math.floor(Math.random() * 90 + 10);
-  y = Math.floor(Math.random() * 90 + 10);
-  // z = Math.floor((Math.random() * 10));
+w = Math.floor(Math.random() * 9 + 1);
+x = Math.floor(Math.random() * 9 + 1);
+y = Math.floor(Math.random() * 9 + 1);
+// z = Math.floor((Math.random() * 10));
+a = Math.floor(Math.random() * 10);
+b = Math.floor(Math.random() * 10);
+c = Math.floor(Math.random() * 10);
 
+// run this loop until w is different than y
+do {
+    w = Math.floor(Math.random() * 9 + 1);
+    x = Math.floor(Math.random() * 9 + 1);
+    y = Math.floor(Math.random() * 9 + 1);
+} while(w === x || x === y || y === w);
 
+w = w * 10 + a;
+x = x * 10 + b;
+y = y * 10 + c;
 
-
-  document.getElementById("demo").value = x;
+document.getElementById("demo").value = x;
 document.getElementById("demo1").value = y;
 document.getElementById("demo2").value = w;
 // document.getElementById("demo3").value = z;
-  
 
- }
+
+}
  $(document).ready(function(){
   $('#txtInput').on("cut copy paste",function(e) {
       e.preventDefault();

@@ -483,7 +483,7 @@ font-size: 16px !important;
 
  
 
-            <span id="demos" class="lucky-no-result-1" style="margin-top: -50px"><?php
+           <?php
 
 
             if (isset($_POST['register'])) {
@@ -515,12 +515,19 @@ font-size: 16px !important;
 // srand(mktime($month,$day,$year));
 // echo(rand(1,9)); 
 
-                while ($row=mysqli_fetch_array($res_u)) {
-                   echo $row['luck'][0];?> <span class="fa fa-star"></span></span>
+                while ($row=mysqli_fetch_array($res_u)) { 
+			
 
-                  <span class="lucky-no-result-2"><?php  echo $row['lucky'][0];  ?><span class="fa fa-star"></span></span>
 
-                  <span id="demo2" class="lucky-no-result-3"><i class="fa fa-star aaaa111"></i> <?php  echo $row['bestluck'][0];  ?></span><br>
+						$a = range(1,9);
+						shuffle($a);
+						$num = array_slice($a, 0, 3);
+					?>
+                  <span id="demos" class="lucky-no-result-1" style="margin-top: -50px"><?php echo $num[0]; ?> <span class="fa fa-star"></span></span>
+
+                  <span class="lucky-no-result-2"><?php  echo $num[1];  ?><span class="fa fa-star"></span></span>
+
+                  <span id="demo2" class="lucky-no-result-3"><i class="fa fa-star aaaa111"></i> <?php  echo $num[2];  ?></span><br> 
 
 <!-- 2 nd row -->
 <span class="lucky-no-result-2 two-number"><?php  echo $row['luck']; ?><span class="fa fa-star"></span></span>
@@ -868,4 +875,4 @@ echo "None";
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </body>
-</html>  
+</html>

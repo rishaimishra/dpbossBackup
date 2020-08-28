@@ -91,6 +91,7 @@ $row['admin_id']=$_SESSION['admin_id'];
                                                 <th>fakeuser</th>
                                                 <th>subadmin</th>
                                                 <th>admin</th>
+                                                <th>Action</th>
                                                 
                                                 
                                             </tr>
@@ -106,6 +107,7 @@ $row['admin_id']=$_SESSION['admin_id'];
                                                 <td><?php echo $row['firstname']  ?></td>
                                                 <td><?php echo $row['fullname']  ?></td>
                                                 <td><?php echo $row['admin_name']  ?></td>
+                                                <td><a class="btn btn-danger">Delete</a></td>
                                      
                                                
                                             </tr>
@@ -119,6 +121,7 @@ $row['admin_id']=$_SESSION['admin_id'];
                                                 <th>fakeuser</th>
                                                 <th>subadmin</th>
                                                 <th>admin</th>
+                                                <th>Action</th>
                                                 
                                         
                                                 
