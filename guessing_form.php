@@ -268,6 +268,17 @@ function myFunction() {
 
 			$date = $dt->format('d/m/Y');
 			$time = $dt->format('h:i A');
+			$post = $row['body'];
+
+		$emojiQuery="select * from emoticons";
+		$res_emoji = mysqli_query($db, $emojiQuery) or die(mysqli_error($db));
+
+			while ($roww = $res_emoji->fetch_assoc()) {
+
+				$chars = $roww['emoji_name'];
+				$imageTag = "<img src='img/emoji/".$roww['image']."' />";
+				$post = str_replace($chars,$imageTag,$post);
+			}
 
 	?>
 
@@ -285,9 +296,9 @@ function myFunction() {
 					<div class="card-body">
 						<?php
 						if (isset($row['l_name'])) {
-							echo "<p style='margin-top:10px;line-height: 2;'>" . $row['l_name'] . "</p><br>" . nl2br($row['body']) . "</p>";
+							echo "<p style='margin-top:10px;line-height: 2;'>" . $row['l_name'] . "</p><br>" . nl2br($post) . "</p>";
 						} else {
-							echo "<p style='margin-top:10px'><br>" . $row['body'] . "</p>";
+							echo "<p style='margin-top:10px'><br>" . $post . "</p>";
 						}
 						?>
 					</div>
